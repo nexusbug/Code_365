@@ -25,15 +25,20 @@ function setup() {
   rectMode(CENTER);
   rect(70, 390, 20, 20);
 
+  // stroke(255);
+  // strokeWeight(2);
+  // fill(0);
+  // ellipse(530, 390, 20, 20);
+
 }
 
 function draw() {
 
   if (mouseX > 60 && mouseX < 80) {
     if (mouseY > 380) {
-      col.r = 20;
-      col.g = 20;
-      col.b = 20;
+      col.r = 0;
+      col.g = 0;
+      col.b = 0;
     }
   }
 
@@ -62,8 +67,8 @@ function draw() {
     ellipse(mouseX, mouseY, 24, 24);
   }
 
-}
+  // function keyPressed(){
+  //   background(0);
+  // }
 
-// function mousePressed() {
-//     background(0);
-// }
+}
