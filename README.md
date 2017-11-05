@@ -7,10 +7,10 @@ github Repo
 https://github.com/nexusbug/Code_365
 
 About
-Doing a challenge, coding three sixty five
-There I hop on the train of Mr. Shiffman
-And code along rainbow colored railway
-One video each day, keeps the gray away
+Doing a challenge, coding three sixty five<br>
+There I hop on the train of Mr. Shiffman<br>
+And code along rainbow colored railway<br>
+One video each day, keeps the gray away<br>
 
 Coding Train
 Daniel Shiffman
