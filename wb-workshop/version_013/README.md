@@ -30,6 +30,7 @@ code link gives github link for code of the current episode <br>
 now language change affects buttons too <br>
 navbar hover colors added <br>
 favicon added <br>
+line height set to 1.8 for easier readability <br>
 
 What is Needed <br>
 Add comments to code <br>
