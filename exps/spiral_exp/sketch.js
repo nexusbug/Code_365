@@ -1,12 +1,10 @@
-let slider;
+let wW, wH, cW, cH;
+let canvas;
 
 let img;
 
-
-let a = 1;
-let b = 0.5;
-let n = 4;
-let c;
+let galaxy;
+let ga2;
 
 let rot = 0;
 
@@ -15,8 +13,11 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(600, 600);
-  //slider = createSlider(0,360,45,15);
+  calcCanvasSize();
+  canvas = createCanvas(cW, cH);
+
+galaxy = new Whirlpool(1);
+ga2 = new Whirlpool(0.5);
 
 }
 
@@ -24,53 +25,99 @@ function setup() {
 function draw() {
   //angleMode(DEGREES);
   background(51);
-  translate(width / 2, height / 2);
-  stroke(255);
+  translate(cW / 2, cH / 2);
+  stroke(255, 0, 0);
   strokeWeight(4);
   noFill();
 
-  rotate(rot);
+rotate(rot);
 
   push();
-  rotate(100);
-  image(img, -200, -200, 400, 400);
+  rotate(100 + rot);
+  image(img, -200, - 200, 400, 400);
   pop();
 
-  beginShape();
-  for (let angle = 0; angle < 0.9 * TWO_PI; angle += 0.01) {
+  //galaxy.rotateG();
+  push();
+  rotate(rot);
+  galaxy.disp();
+  pop();
+
+  push();
+  translate(200 , 200);
+  rotate(rot);
+  ga2.disp();
+  pop();
 
 
-    c = log(b * tan(angle / (2 * n)));
+rot -= 0.01;
 
-    let r = 120 * (a / c);
+}
 
-    let x = r * -cos(angle);
-    let y = r * -sin(angle);
-
-    vertex(x, y);
+class Whirlpool {
+  constructor(scale) {
+    this.a = scale;
+    this.b = 0.5;
+    this.n = 4;
+    this.c;
+    this.r;
   }
 
-  endShape();
+  disp() {
+    beginShape();
+    for (let angle = 0; angle < 0.9 * TWO_PI; angle += 0.01) {
+      this.c = log(this.b * tan(angle / (2 * this.n)));
 
-  beginShape();
-  for (let angle = 0; angle < 0.9 * TWO_PI; angle += 0.01) {
+      this.r = 120 * (this.a / this.c);
 
+      let x = this.r * -cos(angle);
+      let y = this.r * -sin(angle);
 
-    c = log(b * tan(angle / (2 * n)));
+      vertex(x, y);
+    }
+    endShape();
 
-    let r = 120 * (a / c);
+    beginShape();
+    for (let angle = 0; angle < 0.9 * TWO_PI; angle += 0.01) {
+      this.c = log(this.b * tan(angle / (2 * this.n)));
 
-    let x = r * cos(angle);
-    let y = r * -sin(-angle);
+      this.r = 120 * (this.a / this.c);
 
+      let x = this.r * cos(angle);
+      let y = this.r * -sin(-angle);
 
-    vertex(x, y);
+      vertex(x, y);
+    }
+    endShape();
   }
 
-  endShape();
+}
 
 
-  rot +=0.01;
+//template
+function calcCanvasSize() {
+  wW = windowWidth;
+  wH = windowHeight;
+
+  if (wW < wH) {
+    wH = wW
+  } else {
+    wW = wH
+  }
+
+  cW = wW - 300;
+
+  if (wW <= 700) {
+    cW = 400;
+  } else if (wW >= 900) {
+    cW = 600;
+  }
+  cH = cW;
+}
+
+function windowResized() {
+  calcCanvasSize();
+  resizeCanvas(cW, cH);
 
 }
 
