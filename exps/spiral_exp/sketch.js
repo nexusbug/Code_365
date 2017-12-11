@@ -9,7 +9,7 @@ let ga2;
 let rot = 0;
 
 function preload() {
-  img = loadImage("wp.png");
+  img = loadImage("n2.jpg");
 }
 
 function setup() {
@@ -17,7 +17,7 @@ function setup() {
   canvas = createCanvas(cW, cH);
 
 galaxy = new Whirlpool(1);
-ga2 = new Whirlpool(0.5);
+ga2 = new Whirlpool(1);
 
 }
 
@@ -27,27 +27,24 @@ function draw() {
   background(51);
   translate(cW / 2, cH / 2);
   stroke(255, 0, 0);
-  strokeWeight(4);
+  //strokeWeight(4);
   noFill();
 
-rotate(rot);
+  //rotate(rot);
 
   push();
-  rotate(100 + rot);
-  image(img, -200, - 200, 400, 400);
+  rotate(-57);
+  image(img, -210, - 170, 400, 400);
   pop();
 
-  //galaxy.rotateG();
   push();
-  rotate(rot);
   galaxy.disp();
   pop();
 
-  push();
-  translate(200 , 200);
-  rotate(rot);
-  ga2.disp();
-  pop();
+  // push();
+  // rotate(1.75);
+  // ga2.disp();
+  // pop();
 
 
 rot -= 0.01;
@@ -57,18 +54,18 @@ rot -= 0.01;
 class Whirlpool {
   constructor(scale) {
     this.a = scale;
-    this.b = 0.5;
-    this.n = 4;
+    this.b = 3;
+    this.n = 2;
     this.c;
     this.r;
   }
 
   disp() {
     beginShape();
-    for (let angle = 0; angle < 0.9 * TWO_PI; angle += 0.01) {
+    for (let angle = 0.03; angle < 0.1 * TWO_PI; angle += 0.01) {
       this.c = log(this.b * tan(angle / (2 * this.n)));
 
-      this.r = 120 * (this.a / this.c);
+      this.r = 80 * (this.a / this.c);
 
       let x = this.r * -cos(angle);
       let y = this.r * -sin(angle);
@@ -78,10 +75,10 @@ class Whirlpool {
     endShape();
 
     beginShape();
-    for (let angle = 0; angle < 0.9 * TWO_PI; angle += 0.01) {
+    for (let angle = 0.03; angle < 0.1 * TWO_PI; angle += 0.01) {
       this.c = log(this.b * tan(angle / (2 * this.n)));
 
-      this.r = 120 * (this.a / this.c);
+      this.r = 80 * (this.a / this.c);
 
       let x = this.r * cos(angle);
       let y = this.r * -sin(-angle);
