@@ -49,7 +49,7 @@ function draw() {
   // rotate(rot);
 
   push();
-  rotate(rot);
+  rotate(-rot);
   translate(-cW / 2, -cH / 2);
   space.stars();
   pop();
@@ -68,22 +68,26 @@ class SolarSystem {
       noStroke();
       fill(h, s, l);
       push();
-      rotate(rt * frameCount / 200);
+      rotate(-rt * frameCount / 200);
       ellipse(this.x + cW / x, this.y, cW / size);
       pop();
     }
 
-    this.beltyPlanet = function(h, s, l, x, e1, e2, size, rt) {
+    this.beltyPlanet = function(h, s, l, x, e1, e2, size, rt, rt2) {
       rotate(10);
-      strokeWeight(1);
-      stroke(1, 0, 100);
+      strokeWeight(2);
+      stroke(1, 0, 80);
       noFill();
       push();
-      rotate(rt * frameCount / 200);
-      ellipse(this.x + cW / x, this.y, cW / e1, cH / e2);
+      rotate(-rt * frameCount / 200);
+      translate(this.x + cW / x, this.y, cW / e1, cH / e2);
+      rotate(-rt2 * frameCount / 50);
+      // ellipse(this.x + cW / x, this.y, cW / e1, cH / e2);
+      ellipse(0, 0, cW / e1, cH / e2);
       fill(h, s, l);
       noStroke();
-      ellipse(this.x + cW / x, this.y, cW / 20);
+      // ellipse(this.x + cW / x, this.y, cW / size);
+      ellipse(0, 0, cW / size);
       pop();
     }
   }
@@ -92,23 +96,28 @@ class SolarSystem {
 
   disp() {
     //sun
-    this.planet(48, 100, 100, 100000, 6, 0);
+    this.planet(50, 100, 100, 100000, 6, 0);
     //mercury
-    this.planet(204, 0, 73, 10, 49, 11);
+    this.planet(204, 0, 83, 10, 49, 11);
     //venus
     this.planet(46, 50, 60, 7.5, 42, 9);
     //earth
-    this.planet(230, 100, 100, 6, 39, 7);
+    this.planet(200, 100, 100, 6, 39, 7);
     //mars
     this.planet(37, 100, 64, 5, 45, 4);
+    //Asteroid belt
+    strokeWeight(2);
+    stroke(1, 0, 80);
+    noFill();
+    ellipse(this.x, this.y, cW / 2.3);
     //jupiter
-    this.planet(37, 20, 64, 3.9, 13, 3);
+    this.planet(37, 10, 64, 3.8, 13, 3);
     //saturn
-    this.beltyPlanet(51, 40, 64, 2.9, 11, 16, 17, 2);
+    this.beltyPlanet(31, 40, 84, 2.9, 11, 16, 20, 2, 1);
     //uranus
-    this.beltyPlanet(193, 58, 60, 2.35, 19, 13, 20, 1.5);
+    this.beltyPlanet(193, 58, 60, 2.35, 19, 15, 24, 1.5, -1);
     //neptune
-    this.planet(210, 80, 68, 2.1, 25, 1);
+    this.planet(220, 80, 98, 2.1, 28, 1);
 
   }
 
