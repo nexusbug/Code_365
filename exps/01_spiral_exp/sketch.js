@@ -23,7 +23,7 @@ function setup() {
   calcCanvasSize();
   cnv = createCanvas(cW, cH);
 
-  space = new Space();
+  space = new Space(300);
 
   mwArm1 = new Galaxy(0.5, 0.5, 4, 30, 0.03, 0.9, 120);
   mwArm2 = new Galaxy(0.5, 0.5, 4, 20, 0.03, 0.9, 120);
@@ -193,18 +193,20 @@ class Galaxy {
 }
 
 class Space {
-  constructor() {
+  constructor(count) {
     this.xp = width / 2;
     this.yp = height / 2;
+
+    this.count = count;
   }
 
   stars() {
     noStroke();
     randomSeed(4);
-    for (let i = 0; i < 300; i++) {
-      this.xp = random(cW + 200);
-      this.yp = random(cH + 200);
-      fill(random(360), 85, 78);
+    for (let i = 0; i < this.count; i++) {
+      this.xp = random(-150, cW + 150);
+      this.yp = random(-150, cH + 150);
+      fill(1, 0, 100);
       ellipse(this.xp, this.yp, 2);
     }
   }
