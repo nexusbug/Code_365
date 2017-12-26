@@ -25,9 +25,9 @@ let interval;
 let c; //clover
 let cstem;
 
-let alpha = 65;
+let alpha = 15;
 
-let bubbles = [];
+let clouds = [];
 
 function preload() {}
 
@@ -43,8 +43,8 @@ function setup() {
   for (let i = 0; i < 1000; i++) {
     let x = random(cW);
     let y = random(cH);
-    let r = random(10, 40);
-    bubbles[i] = new Bubble(x, y, r);
+    let r = random(20, 40);
+    clouds[i] = new Cloud(x, y, r, 65, 0);
   }
 
 
@@ -57,11 +57,12 @@ function setup() {
 function draw() {
   background(20);
 
-  if (sc <= 4) {
+  if (sc <= 3) {
     colorMode(RGB, 255);
-    for (let i = 0; i < bubbles.length; i++) {
-      bubbles[i].move();
-      bubbles[i].show();
+    for (let i = 0; i < clouds.length; i++) {
+      fill(255, alpha);
+      clouds[i].move();
+      clouds[i].show();
     }
   }
 
@@ -79,16 +80,20 @@ function draw() {
 
   noFill();
   strokeWeight(4);
-  stroke(100);
+  stroke(50);
 
-  scale(sc);
+
 
   if (sc <= 5) {
-    ma.disp();
-  }
-  if (sc <= 175) {
-    stroke(152, 100, 50);
     push();
+    scale(sc);
+    ma.disp();
+    pop();
+  }
+  if (sc <= 112) {
+    push();
+    scale(sc);
+    stroke(152, 100, 50);
     c.disp();
     rotate(PI);
     c.disp();
@@ -99,9 +104,14 @@ function draw() {
     pop();
   }
 
-  if (160 < sc) {
-    scale(1);
-    ma.disp();
+
+  if (110 < sc) {
+    push();
+    rectMode(CENTER);
+    noStroke();
+    fill(152, 100, 50);
+    rect(0, 0, cW, cH);
+    pop();
   }
 
   if (175 < sc) {
@@ -113,34 +123,42 @@ function draw() {
 
 function timer() {
   if (sc <= 5) {
-    sc += 0.01;
-    sw = map(sc, 0.1, 5, 1, 0.5);
-  } else if (5 < sc <= 150) {
-    sc += 0.1;
-    // alpha -= 0.1;
-    sw = map(sc, 5, 30, 0.5, 8);
+    sc += 0.005;
+    alpha -= 1;
+  } else if (5 < sc <= 112) {
+    sc += 0.05;
+    alpha -= 1;
+    sw = map(sc, 5.1, 112, 1, 8);
   }
 }
 
-class Bubble {
-  constructor(x, y, r) {
+class Cloud {
+  constructor(x, y, r, density, limit) {
     this.x = x;
     this.y = y;
     this.r = r;
+
+    this.a = density;
+    this.l = limit;
   }
 
   move() {
     this.x = this.x + random(-5, 5);
     this.y = this.y + random(-5, 5);
     if (this.x > cW || this.x < 0 || this.y > cH || this.y < 0) {
-      this.x = cW / 2;
-      this.y = cH / 2;
+      this.x = random(cW);
+      this.y = random(cH);
     }
+
+    if (this.a >= this.l) {
+      this.a -= 0.5;
+    }
+
   }
 
   show() {
     noStroke();
-    fill(255, 10);
+    fill(255, this.a);
     ellipse(this.x, this.y, this.r * 2);
   }
 }
