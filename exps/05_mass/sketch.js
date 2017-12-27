@@ -6,26 +6,21 @@ STORY of ONE
 EP 005: Mass
 
 SCALE = pow(10, 4) meters
+SCALE = pow(10, 1) meters
 */
 
 let wW, wH, cW, cH;
 
 let cnv;
 
-let mass;
-
 let ma;
 
 let sc = 0.1;
-
-let sw;
 
 let interval;
 
 let c; //clover
 let cstem;
-
-let alpha = 15;
 
 let clouds = [];
 
@@ -55,45 +50,35 @@ function setup() {
 
 
 function draw() {
-  background(20);
-
-  if (sc <= 3) {
-    colorMode(RGB, 255);
-    for (let i = 0; i < clouds.length; i++) {
-      fill(255, alpha);
-      clouds[i].move();
-      clouds[i].show();
-    }
+  colorMode(HSB, 360, 100, 100);
+  if (sc <= 5) {
+    background(215, 35, 95);
+  } else if (5 < sc <= 112) {
+    background(60, 5, 95);
   }
 
   imageMode(CENTER);
-
   colorMode(HSB, 360, 100, 100);
+
   translate(cW / 2, cH / 2);
-
-
-
-
-  // image(mass, 0, -15, cS(150), cS(150));
-
-  sw = map(sc, 0.1, 6, 8, 0.1);
 
   noFill();
   strokeWeight(4);
-  stroke(50);
-
+  stroke(10);
 
 
   if (sc <= 5) {
     push();
     scale(sc);
+    fill(60, 5, 95);
     ma.disp();
     pop();
   }
+
+  stroke(152, 100, 50);
   if (sc <= 112) {
     push();
     scale(sc);
-    stroke(152, 100, 50);
     c.disp();
     rotate(PI);
     c.disp();
@@ -114,21 +99,30 @@ function draw() {
     pop();
   }
 
-  if (175 < sc) {
+  if (120 < sc) {
     clearInterval(interval);
+  }
+
+  translate(-cW / 2, -cH / 2);
+
+  if (sc <= 3) {
+    colorMode(RGB, 255);
+    for (let cloud of clouds) {
+      fill(255, alpha);
+      cloud.move();
+      cloud.show();
+    }
   }
 
 }
 
 
+
 function timer() {
   if (sc <= 5) {
-    sc += 0.005;
-    alpha -= 1;
+    sc += 0.002;
   } else if (5 < sc <= 112) {
     sc += 0.05;
-    alpha -= 1;
-    sw = map(sc, 5.1, 112, 1, 8);
   }
 }
 
@@ -151,7 +145,7 @@ class Cloud {
     }
 
     if (this.a >= this.l) {
-      this.a -= 0.5;
+      this.a -= 0.3;
     }
 
   }
