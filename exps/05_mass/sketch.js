@@ -42,7 +42,6 @@ function setup() {
     clouds[i] = new Cloud(x, y, r, 65, 0);
   }
 
-
   interval = setInterval(timer, 1);
 
 }
@@ -108,7 +107,6 @@ function draw() {
   if (sc <= 3) {
     colorMode(RGB, 255);
     for (let cloud of clouds) {
-      fill(255, alpha);
       cloud.move();
       cloud.show();
     }
