@@ -27,8 +27,7 @@ let cird;
 
 
 function preload() {
-  ref = loadImage("ref.jpg");
-  ref2 = loadImage("h.png");
+
 }
 
 function setup() {
@@ -40,10 +39,10 @@ function setup() {
   b2 = new Boat(-190, 120);
   b3 = new Boat(-90, 250);
 
-  bird = new Bird(0, -500, 0.5, 0);
-  cird = new Bird(120, -450, 0.3, -2);
-  kird =new Bird(20, -550, 0.3, -2);
-    tird =new Bird(120, -600, 0.3, -2);
+  bird = new Bird(0, -550, 0.5, 0);
+  cird = new Bird(10, -500, 0.5, -2);
+  kird = new Bird(-20, -650, 0.3, -2);
+  tird = new Bird(120, -600, 0.3, -2);
 
 
 
@@ -56,20 +55,12 @@ function draw() {
   background(0);
   imageMode(CENTER);
   rectMode(CENTER);
-  tint(255, 120);
-  // image(ref, cW / 2, cH / 2, cS(600), cS(600));
-  // image(ref2, cW / 2 + 3, cH / 2 + 3, cS(140), cS(240));
-
-
 
   // colorMode(HSB, 360, 100, 100);
   translate(cW / 2, cH / 2);
 
-
-
   strokeWeight(4);
   stroke(255);
-
 
   fill(0);
   boston.disp();
@@ -120,8 +111,8 @@ class Name {
 
 class Bird {
   constructor(x, y, scale, speed) {
-    this.x = cS(x) || 0;
-    this.y = cS(y) || 0;
+    this.x = x || 0;
+    this.y = y || 0;
     this.scale = scale || 0.5;
     this.speed = speed;
     this.move;
@@ -129,11 +120,14 @@ class Bird {
     this.a;
     this.d;
 
+    this.yoff = 0;
+
   }
 
   disp() {
-    scale(this.scale);
 
+    push();
+    scale(this.scale);
     push();
     translate(cS(this.x), cS(this.y));
     rotate(this.d);
@@ -144,18 +138,24 @@ class Bird {
     rotate(-this.d);
     arc(cS(30), cS(0), cS(60), cS(80), PI, PI + 0.7 * PI);
     pop();
+    scale(1/this.scale);
+    pop();
 
   }
   update() {
+    this.yoff += 0.01;
     this.s += 0.05;
+    this.y = noise(this.yoff) * sin(this.yoff) * 3 + this.y;
     this.a = sin(this.s);
     this.d = map(this.a, -1, 1, 0, -1.2);
 
     this.x = this.x + this.speed;
-    if (this.x > (cW/2 + cS(30)) / this.scale) {
-      this.x = (-cW/2 - cS(30)) / this.scale;
-    } else if(this.x < (-cW/2-cS(30)) / this.scale){
-      this.x = (cW/2 + cS(30)) / this.scale;
+    // if (this.x > (cW / 2 + 30)) {
+    //   this.x = (-cW / 2 - 30);
+    // } else
+
+    if (this.x < ((-cW / 2) - 50/this.scale) / this.scale) {
+      this.x = ((cW /2) + 50/this.scale) / this.scale;
     }
   }
 }
@@ -183,8 +183,8 @@ class HomoSapien {
 
 class Boat {
   constructor(x, y) {
-    this.x = cS(x) || 0;
-    this.y = cS(y) || 0;
+    this.x = x || 0;
+    this.y = y || 0;
 
   }
 
@@ -207,16 +207,16 @@ class Boat {
   }
   update() {
     this.x = this.x + 1;
-    if (this.x > cW/2 + cS(30)) {
-      this.x = -cW/2 - cS(30);
+    if (this.x > cW / 2 + 40) {
+      this.x = -cW / 2 - 40;
     }
   }
 }
 
 class Boston {
   constructor(x, y) {
-    this.x = cS(x) || 0;
-    this.y = cS(y) || 0;
+    this.x = x || 0;
+    this.y = y || 0;
   }
 
   disp() {
