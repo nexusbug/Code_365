@@ -40,9 +40,9 @@ function setup() {
   b3 = new Boat(-90, 250);
 
   bird = new Bird(0, -550, 0.5, 0);
-  cird = new Bird(10, -500, 0.5, -2);
-  kird = new Bird(-20, -650, 0.3, -2);
-  tird = new Bird(120, -600, 0.3, -2);
+  cird = new Bird(10, -100, 0.5, -2);
+  kird = new Bird(-20, -140, 0.3, -2);
+  tird = new Bird(120, -150, 0.2, -2);
 
 
 
@@ -56,14 +56,23 @@ function draw() {
   imageMode(CENTER);
   rectMode(CENTER);
 
+
+
   // colorMode(HSB, 360, 100, 100);
   translate(cW / 2, cH / 2);
+
+
 
   strokeWeight(4);
   stroke(255);
 
+  // push();
+  // scale(0.3);
   fill(0);
   boston.disp();
+  // pop();
+
+
 
   boat.disp();
   boat.update();
@@ -72,23 +81,15 @@ function draw() {
   b3.disp();
   b3.update();
 
-  // push();
-  // noFill();
+
+  push();
+  noFill();
   // bird.update();
   // bird.disp();
-  // pop();
-  push();
-  noFill();
   cird.update();
   cird.disp();
-  pop();
-  push();
-  noFill();
   kird.update();
   kird.disp();
-  pop();
-  push();
-  noFill();
   tird.update();
   tird.disp();
   pop();
@@ -121,24 +122,21 @@ class Bird {
     this.d;
 
     this.yoff = 0;
-
   }
 
   disp() {
 
     push();
     scale(this.scale);
+    translate(this.x, this.y);
     push();
-    translate(cS(this.x), cS(this.y));
     rotate(this.d);
     arc(cS(-30), cS(0), cS(60), cS(80), 1.3 * PI, TWO_PI);
     pop();
     push();
-    translate(cS(this.x), cS(this.y));
     rotate(-this.d);
     arc(cS(30), cS(0), cS(60), cS(80), PI, PI + 0.7 * PI);
     pop();
-    scale(1/this.scale);
     pop();
 
   }
@@ -149,13 +147,14 @@ class Bird {
     this.a = sin(this.s);
     this.d = map(this.a, -1, 1, 0, -1.2);
 
-    this.x = this.x + this.speed;
+    this.x = this.x - noise(this.yoff) * 5;
     // if (this.x > (cW / 2 + 30)) {
     //   this.x = (-cW / 2 - 30);
     // } else
 
-    if (this.x < ((-cW / 2) - 50/this.scale) / this.scale) {
-      this.x = ((cW /2) + 50/this.scale) / this.scale;
+    if (this.x < ((-cW / 2) / this.scale) - cS(50)) {
+      this.x = ((cW / 2) / this.scale) + cS(50);
+      // this.x /= this.scale;
     }
   }
 }
@@ -186,6 +185,8 @@ class Boat {
     this.x = x || 0;
     this.y = y || 0;
 
+    this.m;
+
   }
 
   disp() {
@@ -206,9 +207,10 @@ class Boat {
     endShape();
   }
   update() {
+    this.m = map(cW, 400, 600, 2/3, 1);
     this.x = this.x + 1;
-    if (this.x > cW / 2 + 40) {
-      this.x = -cW / 2 - 40;
+    if (this.x > (cW / 2 + cS(30))/this.m) {
+      this.x = ((-cW / 2) - cS(30))/this.m;
     }
   }
 }
