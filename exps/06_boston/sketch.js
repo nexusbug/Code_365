@@ -24,6 +24,10 @@ let bird;
 
 let cird;
 
+let human;
+
+let lh;
+
 
 
 function preload() {
@@ -36,13 +40,16 @@ function setup() {
 
   boston = new Boston(0, -60);
   boat = new Boat(30, 200)
-  b2 = new Boat(-190, 120);
-  b3 = new Boat(-90, 250);
+  b2 = new Boat(-190, 170);
+  b3 = new Boat(-90, 120);
 
   bird = new Bird(0, -550, 0.5, 0);
   cird = new Bird(10, -100, 0.5, -2);
   kird = new Bird(-20, -140, 0.3, -2);
   tird = new Bird(120, -150, 0.2, -2);
+
+  human = new HomoSapien(cS(-450), cS(410), 0.5);
+  lh = new HomoSapien(cS(-650), cS(800), 0.3);
 
 
 
@@ -52,25 +59,29 @@ function setup() {
 
 
 function draw() {
-  background(0);
+  // background(0);
   imageMode(CENTER);
-  rectMode(CENTER);
+  // rectMode(CENTER);
 
 
 
-  // colorMode(HSB, 360, 100, 100);
+  colorMode(HSB, 360, 100, 100);
+  background(10, 55, 100);
   translate(cW / 2, cH / 2);
+
+  noStroke();
+  fill(220, 60, 100);
+  rect(-cW / 2, 0, cW, cH / 2);
 
 
 
   strokeWeight(4);
-  stroke(255);
+  stroke(0);
 
-  // push();
-  // scale(0.3);
+
   fill(0);
   boston.disp();
-  // pop();
+
 
 
 
@@ -84,6 +95,8 @@ function draw() {
 
   push();
   noFill();
+  strokeWeight(10);
+  stroke(255);
   // bird.update();
   // bird.disp();
   cird.update();
@@ -93,6 +106,14 @@ function draw() {
   tird.update();
   tird.disp();
   pop();
+
+  noStroke();
+  fill(0);
+  rect(-cW / 2, cS(240), cW, cS(60));
+
+    fill(255);
+  human.disp();
+  lh.disp();
 
 
 
@@ -152,31 +173,39 @@ class Bird {
     //   this.x = (-cW / 2 - 30);
     // } else
 
-    if (this.x < ((-cW / 2) / this.scale) - cS(50)) {
-      this.x = ((cW / 2) / this.scale) + cS(50);
+    if (this.x < ((-cW / 2) / this.scale) - cS(80)) {
+      this.x = ((cW / 2) / this.scale) + cS(80);
       // this.x /= this.scale;
     }
   }
 }
 
 class HomoSapien {
-  constructor() {
+  constructor(x, y, scale) {
+    this.x = x || 0;
+    this.y = y || 0;
 
+    this.scale = scale || 0.5;
   }
 
   disp() {
-    ellipse(cS(0), cS(-80), cS(30));
-    rect(cS(0), cS(-20), cS(45), cS(76), cS(10));
     push();
-    rotate(9);
-    rect(cS(-35), cS(8), cS(10), cS(75), cS(10));
+    scale(this.scale);
+    rectMode(CENTER);
+    translate(cS(this.x), cS(this.y));
+    ellipse(cS(0), cS(0), cS(30));
+    rect(cS(0), cS(56), cS(45), cS(76), cS(8));
+    push();
+    rotate(-0.3);
+    rect(cS(10), cS(62), cS(10), cS(75), cS(10));
     pop();
     push();
-    rotate(-9);
-    rect(cS(35), cS(8), cS(10), cS(75), cS(10));
+    rotate(0.3);
+    rect(cS(-10), cS(62), cS(10), cS(75), cS(10));
     pop();
-    rect(cS(-12), cS(55), cS(12), cS(85), cS(10));
-    rect(cS(12), cS(55), cS(12), cS(85), cS(10));
+    rect(cS(-12), cS(130), cS(12), cS(85), cS(10));
+    rect(cS(12), cS(130), cS(12), cS(85), cS(10));
+    pop();
   }
 }
 
@@ -185,8 +214,9 @@ class Boat {
     this.x = x || 0;
     this.y = y || 0;
 
-    this.m;
+    this.xoff = 0;
 
+    this.m;
   }
 
   disp() {
@@ -207,10 +237,14 @@ class Boat {
     endShape();
   }
   update() {
-    this.m = map(cW, 400, 600, 2/3, 1);
-    this.x = this.x + 1;
-    if (this.x > (cW / 2 + cS(30))/this.m) {
-      this.x = ((-cW / 2) - cS(30))/this.m;
+    this.m = map(cW, 400, 600, 2 / 3, 1);
+
+    this.xoff += 0.01;
+    this.x += noise(this.xoff);
+
+    // this.x = this.x + 1;
+    if (this.x > (cW / 2 + cS(30)) / this.m) {
+      this.x = ((-cW / 2) - cS(30)) / this.m;
     }
   }
 }
