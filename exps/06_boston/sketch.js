@@ -28,6 +28,8 @@ let human;
 
 let lh;
 
+let flock = [];
+
 
 
 function preload() {
@@ -43,10 +45,17 @@ function setup() {
   b2 = new Boat(-190, 170);
   b3 = new Boat(-90, 120);
 
-  bird = new Bird(0, -550, 0.5, 0);
-  cird = new Bird(10, -100, 0.5, -2);
-  kird = new Bird(-20, -140, 0.3, -2);
-  tird = new Bird(120, -150, 0.2, -2);
+
+
+  bird1 = new Bird(-10, -240, 0.3, -2);
+  bird2 = new Bird(-100, -310, 0.3, -2);
+  bird3 = new Bird(700, -10, 0.5, -2);
+
+  for (let i = 0; i < 1; i++) {
+    for (let j = 0; j < 2; j++) {
+      flock.push(new Bird(i * 150 + j * 120, -950 - j * 80, 0.2, -2));
+    }
+  }
 
   human = new HomoSapien(cS(-450), cS(410), 0.5);
   lh = new HomoSapien(cS(-650), cS(800), 0.3);
@@ -69,16 +78,24 @@ function draw() {
   background(10, 55, 100);
   translate(cW / 2, cH / 2);
 
+  strokeWeight(9);
+  stroke(255);
+  noFill();
+  for (let i of flock) {
+    i.update();
+    i.disp();
+  }
+
   noStroke();
   fill(220, 60, 100);
   rect(-cW / 2, 0, cW, cH / 2);
 
 
 
+
+
   strokeWeight(4);
   stroke(0);
-
-
   fill(0);
   boston.disp();
 
@@ -97,21 +114,22 @@ function draw() {
   noFill();
   strokeWeight(10);
   stroke(255);
-  // bird.update();
-  // bird.disp();
-  cird.update();
-  cird.disp();
-  kird.update();
-  kird.disp();
-  tird.update();
-  tird.disp();
+  bird1.update();
+  bird1.disp();
+  bird2.update();
+  bird2.disp();
+  bird3.update();
+  bird3.disp();
+
+
+
   pop();
 
   noStroke();
   fill(0);
   rect(-cW / 2, cS(240), cW, cS(60));
 
-    fill(255);
+  fill(255);
   human.disp();
   lh.disp();
 
