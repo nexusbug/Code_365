@@ -3,38 +3,26 @@ http://nexusbug.com/
 
 STORY of ONE
 
-EP 000: Template
+EP 006: The City
 
-SCALE = pow(10, x) meters
+SCALE = pow(10, 1) meters
 */
 
 let wW, wH, cW, cH;
 
 let cnv;
 
-let ref;
-
-let ref2;
-
 let boston;
 
-let boat;
-
-let bird;
-
-let cird;
+let boat, boat2, boat3, bird1, bird2, bird3;
 
 let human;
 
-let lh;
+let littleHuman;
 
 let flock = [];
 
-
-
-function preload() {
-
-}
+function preload() {}
 
 function setup() {
   calcCanvasSize();
@@ -42,10 +30,8 @@ function setup() {
 
   boston = new Boston(0, -60);
   boat = new Boat(30, 200)
-  b2 = new Boat(-190, 170);
-  b3 = new Boat(-90, 120);
-
-
+  boat2 = new Boat(-190, 170);
+  boat3 = new Boat(-90, 120);
 
   bird1 = new Bird(-10, -240, 0.3, -2);
   bird2 = new Bird(-100, -310, 0.3, -2);
@@ -57,23 +43,14 @@ function setup() {
     }
   }
 
-  human = new HomoSapien(cS(-450), cS(410), 0.5);
-  lh = new HomoSapien(cS(-650), cS(800), 0.3);
-
-
-
-
+  human = new HomoSapien(-450, 410, 0.5);
+  littleHuman = new HomoSapien(-650, 800, 0.3);
 }
 
 
 
 function draw() {
-  // background(0);
   imageMode(CENTER);
-  // rectMode(CENTER);
-
-
-
   colorMode(HSB, 360, 100, 100);
   background(10, 55, 100);
   translate(cW / 2, cH / 2);
@@ -90,25 +67,17 @@ function draw() {
   fill(220, 60, 100);
   rect(-cW / 2, 0, cW, cH / 2);
 
-
-
-
-
   strokeWeight(4);
   stroke(0);
   fill(0);
   boston.disp();
 
-
-
-
   boat.disp();
   boat.update();
-  b2.disp();
-  b2.update();
-  b3.disp();
-  b3.update();
-
+  boat2.disp();
+  boat2.update();
+  boat3.disp();
+  boat3.update();
 
   push();
   noFill();
@@ -120,9 +89,6 @@ function draw() {
   bird2.disp();
   bird3.update();
   bird3.disp();
-
-
-
   pop();
 
   noStroke();
@@ -131,22 +97,7 @@ function draw() {
 
   fill(255);
   human.disp();
-  lh.disp();
-
-
-
-
-
-}
-
-class Name {
-  constructor() {
-
-  }
-
-  disp() {
-
-  }
+  littleHuman.disp();
 }
 
 class Bird {
@@ -159,12 +110,10 @@ class Bird {
     this.s = 0;
     this.a;
     this.d;
-
     this.yoff = 0;
   }
 
   disp() {
-
     push();
     scale(this.scale);
     translate(this.x, this.y);
@@ -177,23 +126,18 @@ class Bird {
     arc(cS(30), cS(0), cS(60), cS(80), PI, PI + 0.7 * PI);
     pop();
     pop();
-
   }
+
   update() {
     this.yoff += 0.01;
     this.s += 0.05;
     this.y = noise(this.yoff) * sin(this.yoff) * 3 + this.y;
     this.a = sin(this.s);
     this.d = map(this.a, -1, 1, 0, -1.2);
-
     this.x = this.x - noise(this.yoff) * 5;
-    // if (this.x > (cW / 2 + 30)) {
-    //   this.x = (-cW / 2 - 30);
-    // } else
 
     if (this.x < ((-cW / 2) / this.scale) - cS(80)) {
       this.x = ((cW / 2) / this.scale) + cS(80);
-      // this.x /= this.scale;
     }
   }
 }
@@ -202,7 +146,6 @@ class HomoSapien {
   constructor(x, y, scale) {
     this.x = x || 0;
     this.y = y || 0;
-
     this.scale = scale || 0.5;
   }
 
@@ -231,9 +174,7 @@ class Boat {
   constructor(x, y) {
     this.x = x || 0;
     this.y = y || 0;
-
     this.xoff = 0;
-
     this.m;
   }
 
@@ -254,13 +195,13 @@ class Boat {
     vertex(cS(this.x + 0), cS(this.y + 10));
     endShape();
   }
+
   update() {
     this.m = map(cW, 400, 600, 2 / 3, 1);
 
     this.xoff += 0.01;
     this.x += noise(this.xoff);
 
-    // this.x = this.x + 1;
     if (this.x > (cW / 2 + cS(30)) / this.m) {
       this.x = ((-cW / 2) - cS(30)) / this.m;
     }
@@ -330,8 +271,6 @@ class Boston {
     endShape(CLOSE);
   }
 }
-
-
 
 //template
 
