@@ -27,6 +27,10 @@ class Snowflake {
     this.pos = createVector(x, y);
     this.vel = createVector(0, 0);
     this.acc = createVector();
+    this.angle = random(TWO_PI);
+    this.dir = (random(1) > 0.5) ? 1 : -1;
+    this.xOff = 0;
+
     this.r = getRandomSize();
   }
 
@@ -42,8 +46,13 @@ class Snowflake {
   }
 
   render() {
+    push();
+    translate(this.pos.x + this.xOff, this.pos.y);
+    rotate(this.angle);
     imageMode(CENTER);
-    image(this.img, this.pos.x, this.pos.y, this.r, this.r);
+    image(this.img, 0, 0, this.r, this.r);
+    pop();
+
   }
 
 
@@ -57,8 +66,12 @@ class Snowflake {
   }
 
   update() {
+
+    this.xOff = sin(this.angle * 2) * this.r * 2;
+
+
     this.vel.add(this.acc);
-    this.vel.limit(this.r * 0.2);
+    this.vel.limit(this.r * 0.1);
 
     if (this.vel.mag() < 1) {
       this.vel.normalize();
@@ -71,10 +84,21 @@ class Snowflake {
     if (this.pos.y > height + this.r) {
       this.randomize();
     }
+
+    if (this.pos.x < -this.r) {
+      this.pos.x = width + this.r;
+    }
+    if (this.pos.x > width + this.r) {
+      this.pos.x = -this.r;
+    }
+
+    this.angle += this.dir * this.vel.mag() / 300;
   }
 
   offScreen() {
-    return (this.pos.y > height + this.r);
+    return (this.pos.y > height + this.r ||
+      this.pos.x < -this.r ||
+      this.pos.x > width + this.r);
   }
 }
 
