@@ -22,11 +22,12 @@ function setup() {
   for (let i = 0; i < 500; i++) {
     particles[i] = new Particle();
   }
+    background(255);
 
 }
 
 function draw() {
-  background(255);
+
 
   let yoff = 0;
 
@@ -42,12 +43,12 @@ function draw() {
       flowfield[index] = v;
       xoff += inc;
       stroke(0, 50);
-      push();
-      translate(x * scl, y * scl);
-      rotate(v.heading());
-      strokeWeight(1);
-      line(0, 0, scl, 0);
-      pop();
+      // push();
+      // translate(x * scl, y * scl);
+      // rotate(v.heading());
+      // strokeWeight(1);
+      // line(0, 0, scl, 0);
+      // pop();
 
     }
     yoff += inc;
