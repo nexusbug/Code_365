@@ -22,7 +22,8 @@ function setup() {
   for (let i = 0; i < 500; i++) {
     particles[i] = new Particle();
   }
-    background(255);
+  
+  background(255);
 
 }
 
@@ -60,9 +61,8 @@ function draw() {
   for (let i = 0; i < particles.length; i++) {
     particles[i].follow(flowfield);
     particles[i].update();
-    particles[i].show();
     particles[i].edges();
-
+    particles[i].show();
   }
 
 
