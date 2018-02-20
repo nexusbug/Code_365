@@ -1,5 +1,4 @@
-dv(600851475143);
-dv(59569);
+// dv(600851475143);
 
 function dv(x) {
 
@@ -7,38 +6,33 @@ function dv(x) {
   let start = 5 * (10 ** (ln / 3));
   let end = 6 * (10 ** (ln / 3));
 
-  for (let i = start; i <= end; i++) {
+  for (let i = 50000; i <= 60000; i++) {
     if (x % i == 0) {
-      console.log(i);
-      return i;
+      // console.log(i);
+      // console.log(x/i);
+      return x/i;
     }
   }
 }
 
 
+primeFactor(dv(600851475143));
 
 
-
-
-
-// primeFactor(102);
-
-
-// function primeFactor(x) {
-//   if (x > 2) {
-//     for (let i = x - 1; i > 2; i--) {
-//       if (x % i == 0) {
-//         // let division = x / i;
-//         console.log(i);
-//         // primeFactor(i);
-//       }
-//     }
-//   } else if (x == 2) {
-//     console.log(2);
-//   } else {
-//     console.log("impossible");
-//   }
-// }
+function primeFactor(x) {
+  if (x > 2) {
+    for (let i = x - 1; i > 2; i--) {
+      if (x % i == 0) {
+        // let division = x / i;
+        console.log(i);
+      }
+    }
+  } else if (x == 2) {
+    console.log(2);
+  } else {
+    console.log("impossible");
+  }
+}
 
 
 
