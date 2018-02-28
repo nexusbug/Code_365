@@ -2,6 +2,7 @@
 
 I need a JOB please
 I still need a JOB
+I would be useful for society you know, if I had a JOB
 
 Website<br>
 http://nexusbug.com/
