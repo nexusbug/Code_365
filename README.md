@@ -2,7 +2,8 @@
 
 I need a JOB please
 I still need a JOB
-I would be useful for society you know, if I had a JOB
+I would be useful for society; you know, if I had a JOB
+JOB probably needs me too
 
 Website<br>
 http://nexusbug.com/
