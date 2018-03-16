@@ -1,10 +1,6 @@
 # Code_365
 
-I need a JOB please <br>
-I still need a JOB <br>
-I would be useful for society; you know, if I had a JOB <br>
-JOB probably needs me too <br>
-JOB please? <br>
+I'm looking for a JOB <br>
 
 Website<br>
 http://nexusbug.com/
