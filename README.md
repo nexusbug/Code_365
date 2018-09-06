@@ -1,7 +1,5 @@
 # Code_365
 
-I'm looking for a JOB <br>
-
 Website<br>
 http://nexusbug.com/
 
